@@ -21,6 +21,10 @@ Route::get('/', function() {
     return '<h1>Thats all folks!</h1>';
 })->name('home');
 
+Route::get('/home', function() {
+    return redirect()->route('home');
+});
+
 Route::middleware('domain')->group(function () {
     Route::get('/', [HomeController::class, 'index']);
 });
