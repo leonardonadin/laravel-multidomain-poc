@@ -17,16 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::domain('localhost')->group(function () {
-    Route::get('/', [AccountController::class, 'index']);
-});
+Route::get('/', function() {
+    return '<h1>Thats all folks!</h1>';
+})->name('home');
 
-Route::domain('admin.localhost')->group(function () {
-    Route::view('/', 'admin');
-});
-
-Route::domain('{subdomain}.{domain}')->group(function () {
-    Route::middleware('account')->group(function () {
+Route::domain('{domain}')->group(function () {
+    Route::middleware('domain')->group(function () {
         Route::get('/', [HomeController::class, 'index']);
     });
 });
