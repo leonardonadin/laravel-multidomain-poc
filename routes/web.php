@@ -21,8 +21,6 @@ Route::get('/', function() {
     return '<h1>Thats all folks!</h1>';
 })->name('home');
 
-Route::domain('{domain}')->group(function () {
-    Route::middleware('domain')->group(function () {
-        Route::get('/', [HomeController::class, 'index']);
-    });
+Route::middleware('domain')->group(function () {
+    Route::get('/', [HomeController::class, 'index']);
 });

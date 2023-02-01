@@ -22,6 +22,7 @@ class Domain
 
         if ($account) {
             $request->attributes->add(['account' => $account]);
+            $request->session()->put('account_id', $account->id);
         } else {
             return redirect()->route('home');
         }
