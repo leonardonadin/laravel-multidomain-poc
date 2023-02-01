@@ -17,16 +17,42 @@ class Product extends Model {
         return $this->belongsTo(Account::class);
     }
 
-    public function getPriceAttribute() {
-        return $this->prices()->where('account_id', session('account_id'))->first()->price;
+    public function getPriceAttribute()
+    {
+        if ($this->prices()->count() > 0) {
+            $price = $this->prices()->where('account_id', session('account_id'))->first();
+
+            if ($price) {
+                return $price->price;
+            }
+        }
+
+        return null;
     }
 
     public function getPromoPriceAttribute() {
-        return $this->prices()->where('account_id', session('account_id'))->first()->promo_price;
+        if ($this->prices()->count() > 0) {
+            $price = $this->prices()->where('account_id', session('account_id'))->first();
+
+            if ($price) {
+                return $price->promo_price;
+            }
+        }
+
+        return null;
     }
 
-    public function getQuantityAttribute() {
-        return $this->stocks()->where('account_id', session('account_id'))->first()->quantity;
+    public function getQuantityAttribute()
+    {
+        if ($this->stocks()->count() > 0) {
+            $stock = $this->stocks()->where('account_id', session('account_id'))->first();
+
+            if ($stock) {
+                return $stock->quantity;
+            }
+        }
+
+        return null;
     }
 
     public function prices() {
